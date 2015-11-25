@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+		<meta charset="utf-8">
+		<meta name="X-UA-Compatible" content="IE=edge; Chrome=1.0">
+		<meta name="viewpoint" content="width=device-width; minimum-scale=1.0; maximum-scale=1.0; initial-scale=1.0;">
+		<title>Mix· Example</title>
+		<link rel="stylesheet" href="css/reset.css" >
+	</head>
+	<body>
+		<div align="center" id="charts">
+			<div id="main" style="width: 100%; height: 400px; margin: 0;">
+			</div>
+			<div style="text-align: center;">
+                    <button type="button" class="btn-refresh" onclick="refresh(true)">刷 新</button>
+                    <span style=" font-size: 16px; line-height36px; color: #333;">切换主题</span>
+                    <select id="theme-select"></select>
+                </div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/echarts-all.js"></script>
+		<script src="js/theme.js"></script>
+		<script src="js/function.js"></script>
+		<script type="text/javascript">
+		
+			var maincharts = echarts.init(document.getElementById('main'));
+			
+			var data1 = (function() {
+				var d = [], len = 40, value;
+				while(len--) {
+					d.push([
+						Math.round(Math.random()*10) * (Math.round(Math.random()*10) > 5 ? 1 : -1),
+						Math.round(Math.random()*10) * (Math.round(Math.random()*10) > 5 ? 1 : -1),
+						Math.round(Math.random()*20)
+					])
+				}
+				return d;
+			})();
+			var data2 = (function() {
+				var d = [], len = data1.length;
+				 for (var i = 0; i < len; i++) {
+					d.push([
+						data1[i][0],
+						data1[i][1],
+						Math.round(Math.random()*15)
+					]);
+				}
+				return d;
+			})();
+			function bulidPieSeries() {
+				var xAxis = maincharts.component.xAxis.getAxis(0);
+				var yAxis = maincharts.component.yAxis.getAxis(0);
+				var len = data1.length;
+				options.series = options.series.slice(0, 2);
+				options.legend = {
+					data: ['系列1', '系列2']
+				};
+				console.log(maincharts);
+				while(len--) {
+					options.series.push({
+						type: 'pie',
+						itemStyle : {
+							normal : {
+								label : {
+									show : false
+								},
+								labelLine : {
+									show : false
+								}
+							}
+						},
+						radius : data1[len][2] + data2[len][2],
+						center: [
+							xAxis.getCoord(data1[len][0]), 
+							yAxis.getCoord(data1[len][1])
+						],
+						data: [
+							{name: '系列1', value: data1[len][2]},
+							{name: '系列2', value: data2[len][2]}
+						]
+					})
+				}
+				options.animation = true;
+				maincharts.setOption(options, true);
+				window.onresize = bulidPieSeries;
+			}
+			setTimeout(bulidPieSeries, 100);
+			var options = {
+				title: {
+					text: '饼图代替散点',
+					subtext: '混搭'
+				},
+				tooltip: {
+					trigger: 'axis',
+					formatter: '{b}: {c}({d}%)'
+				},
+				color : ['rgba(255, 69, 0, 0.5)', 'rgba(30, 144, 255, 0.5)'],
+				toolbox: {
+					show: true,
+					feature: {
+						mark: {show: true},
+						dataView: {show: true},
+						restore: {show: true},
+						saveAsImage: {show: true}
+					}
+				},
+				xAxis: [
+					{
+						type: 'value',
+						axisTick: {
+							show: false
+						},
+						splitLine: {
+							show: false,
+							lineStyle: {
+								color:'#eee',
+								type: 'solid',
+								width: 1
+							}
+						},
+						splitNumber: 2,
+						splitArea: {
+							show: true,
+							areaStyle: {
+								color: ['rgba(238, 238, 238, 0.3)', 'rgba(232, 232, 232, 0.3)']
+							}
+						},
+						data : ['周一','周二','周三','周四','周五','周六','周日']
+					}
+				],
+				yAxis: [
+					{
+						type: 'value',
+						splitLine: {
+							show: true,
+							lineStyle: {
+								color:'#eee',
+								type: 'solid',
+								width: 1
+							}
+						},
+						splitNumber: 2
+					}
+				],				
+				series: [
+					{
+						type: 'scatter',
+						symbol: 'none',
+						data:data1
+					},
+					{
+						type: 'scatter',
+						symbol: 'none',
+						data: data2
+					}
+				]
+			};
+			maincharts.setOption(options);
+			maincharts.setTheme('macarons');
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+		<meta charset="utf-8">
+		<meta name="X-UA-Compatible" content="IE=edge; Chrome=1.0">
+		<meta name="viewpoint" content="width=device-width; minimum-scale=1.0; maximum-scale=1.0; initial-scale=1.0;">
+		<title>Scatter· Example</title>
+		<link rel="stylesheet" href="css/reset.css" >
+	</head>
+	<body>
+		<div align="center" id="charts">
+			<div id="main" style="width: 100%; height: 400px; margin: 0;">
+			</div>
+			<div style="text-align: center;">
+                    <button type="button" class="btn-refresh" onclick="refresh(true)">刷 新</button>
+                    <span style=" font-size: 16px; line-height36px; color: #333;">切换主题</span>
+                    <select id="theme-select"></select>
+                </div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/echarts-all.js"></script>
+		<script src="js/theme.js"></script>
+		<script src="js/function.js"></script>
+		<script src="js/timeline.js"></script>
+		<script type="text/javascript">
+		
+			var maincharts = echarts.init(document.getElementById('main'));
+			var options = [
+				{
+					tooltip: {
+						trigger: 'axis',
+						axisPointer: {
+							show: true,
+							type: 'cross',
+							lineStyle: {
+								type: 'dashed',
+								width: 1
+							}
+							
+						}
+					},
+					title: {
+						text: '2005全国宏观经济关联分析（GDP vs 房地产）',
+						subtext: '虚拟数据'
+					},
+					toolbox: {
+						show: true,
+						x: 'right',
+						y: 'center',
+						orient: 'vertical',
+						feature: {
+							mark: {show: true},
+							dataView:{show: true},
+							restore: {show: true},
+							saveAsImage: {show:true}
+						}
+					},
+					xAxis: [
+						{
+							type: 'value',
+							name: '房地产（亿元）',
+							splitLine: {
+								show: true,
+								lineStyle: {
+									width: 1,
+									type: 'solid',
+									color: '#eee'
+								}
+							},
+							splitArea: {
+								show: true,
+								areaStyle: {
+										color: ['rgba(238, 238, 238, 0.3)', 'rgba(232, 232, 232, 0.3)']
+									}
+							},
+							max: 3400
+						}
+					],
+					yAxis:[
+						{
+							type: 'value',
+							name: 'GDP（亿元）',
+							splitLine: {
+								show: true,
+								lineStyle: {
+									width: 1,
+									type: 'solid',
+									color: '#eee'
+								}
+							},
+							max: 53500
+						}
+					],
+					series: [
+						{
+							name: 'GDP',
+							type: 'scatter',
+							symbol: 'circle',
+							symbolSize:5,
+							itemStyle: {
+								normal : {
+									label : {
+										show: true,
+										formatter : '{b}'
+									}
+								}
+							},
+							markLine: {
+								data:[
+									{type:'average', name: 'y平均值',itemStyle:{normal:{borderColor:'red'}}},
+									{type:'average', name: 'x平均值',valueIndex:0,itemStyle:{normal:{borderColor:'red'}}}
+								]
+							},
+							data: dataMap.dataGDP_Estate['2005']
+						}
+					]
+				},
+				{
+					title: {
+						text: '2006全国宏观经济关联分析（GDP vs 房地产）',
+						subtext: '虚拟数据'
+					},
+					series: {
+						data: dataMap.dataGDP_Estate['2006']
+					}
+				},
+				{
+					title: {
+						text: '2007全国宏观经济关联分析（GDP vs 房地产）',
+						subtext: '虚拟数据'
+					},
+					series: {
+						data: dataMap.dataGDP_Estate['2007']
+					}
+				},
+				{
+					title: {
+						text: '2008全国宏观经济关联分析（GDP vs 房地产）',
+						subtext: '虚拟数据'
+					},
+					series: {
+						data: dataMap.dataGDP_Estate['2008']
+					}
+				},
+				{
+					title: {
+						text: '2009全国宏观经济关联分析（GDP vs 房地产）',
+						subtext: '虚拟数据'
+					},
+					series: {
+						data: dataMap.dataGDP_Estate['2009']
+					}
+				},
+				{
+					title: {
+						text: '2010全国宏观经济关联分析（GDP vs 房地产）',
+						subtext: '虚拟数据'
+					},
+					series: {
+						data: dataMap.dataGDP_Estate['2010']
+					}
+				},
+				{
+					title: {
+						text: '2011全国宏观经济关联分析（GDP vs 房地产）',
+						subtext: '虚拟数据'
+					},
+					series: {
+						data: dataMap.dataGDP_Estate['2011']
+					}
+				},
+				{
+					title: {
+						text: '2012全国宏观经济关联分析（GDP vs 房地产）',
+						subtext: '虚拟数据'
+					},
+					series: {
+						data: dataMap.dataGDP_Estate['2012']
+					}
+				},
+				{
+					title: {
+						text: '2013全国宏观经济关联分析（GDP vs 房地产）',
+						subtext: '虚拟数据'
+					},
+					series: {
+						data: dataMap.dataGDP_Estate['2013']
+					}
+				},
+				{
+					title: {
+						text: '2014全国宏观经济关联分析（GDP vs 房地产）',
+						subtext: '虚拟数据'
+					},
+					series: {
+						data: dataMap.dataGDP_Estate['2014']
+					}
+				}
+			];
+			var options1 = {
+				timeline: {
+					data: ['2005-01-01','2006-01-01',
+					'2007-01-01','2008-01-01','2009-01-01','2010-01-01','2011-01-01','20012-01-01','20013-01-01','20014-01-01'],
+					autoplay: true,
+					label: {
+						formatter: function(s) {
+							return s.slice(0,4);
+						}
+					}
+				},
+				options: options
+			}
+			maincharts.setOption(options1);
+			maincharts.setTheme('macarons');
+			
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+		<meta charset="utf-8">
+		<meta name="X-UA-Compatible" content="IE=edge; Chrome=1.0">
+		<meta name="viewpoint" content="width=device-width; minimum-scale=1.0; maximum-scale=1.0; initial-scale=1.0;">
+		<title>Heatmap· Example</title>
+		<link rel="stylesheet" href="css/reset.css" >
+	</head>
+	<body>
+		<div align="center" id="charts">
+			<div id="main" style="width: 100%; height: 400px; margin: 0;">
+			</div>
+			<div style="text-align: center;">
+                    <button type="button" class="btn-refresh" onclick="refresh(true)">刷 新</button>
+                    <span style=" font-size: 16px; line-height36px; color: #333;">切换主题</span>
+                    <select id="theme-select"></select>
+                </div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/echarts-all.js"></script>
+		<script src="js/theme.js"></script>
+		<script src="js/function.js"></script>
+		<script type="text/javascript">
+		
+			var maincharts = echarts.init(document.getElementById('main'));
+			var hdata = [];
+			
+			for(var i = 0; i < 200; ++i) {
+				hdata.push([
+					100 + Math.random()*20,
+					24 + Math.random()*16,
+					Math.random()
+				]);
+			}
+			
+			for (var j=0; j<10; ++j) {
+				var x = 100+Math.random()*16, y = 24+Math.random()*12, cnt = Math.random()*30;
+				for (var i = 0; i < cnt; ++i){
+					hdata.push([
+						x + Math.random()*2,
+						y + Math.random()*2,
+						Math.random()
+					]);
+				}
+			}
+			var options = {
+				backgroundColor: '#1b1b1b',
+				title: {
+					text: '热力图',
+					x: 'center',
+					textStyle: {
+						color: '#fff'
+					}
+				},
+				tooltip: {
+					trigger: 'item',
+					formatter:'{b}'
+				},
+				toolbox: {
+					show: true,
+					orient: 'vertical',
+					x: 'right',
+					y: 'center',
+					feature: {
+						mark: {show: true},
+						dataView:{show: true, readOnly: false},
+						restore: {show: true},
+						saveAsImage: {show: true}
+					}
+				},
+				series: [
+					{
+						name: '背景',
+						type: 'map',
+						mayType: 'china',
+						hoverable: false,
+						data: [],
+						roam: true,
+						heatmap: {
+							minAlpha: 0.1,
+							data: hdata
+							
+						},
+						itemStyle: {
+							normal: {
+								borderColor: 'rgba(100, 149, 237, 0.6)',
+								borderWidth: 0.5,
+								areaStyle: {
+									color: '#1b1b1b'
+								}
+							}
+						}
+					}
+					
+				]
+			};
+			maincharts.setOption(options);
+			maincharts.setTheme('macarons');
+			
+		</script>
+	</body>
+</html>

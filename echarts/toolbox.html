@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+		<meta charset="utf-8">
+		<meta name="X-UA-Compatible" content="IE=edge; Chrome=1.0">
+		<meta name="viewpoint" content="width=device-width; minimum-scale=1.0; maximum-scale=1.0; initial-scale=1.0;">
+		<title>Toolbox· Example</title>
+		<link rel="stylesheet" href="css/reset.css" >
+	</head>
+	<body>
+		<div align="center" id="charts">
+			<div id="main" style="width: 100%; height: 400px; margin: 0;">
+			</div>
+			<div style="text-align: center;">
+                    <button type="button" class="btn-refresh" onclick="refresh(true)">刷 新</button>
+                    <span style=" font-size: 16px; line-height36px; color: #333;">切换主题</span>
+                    <select id="theme-select"></select>
+                </div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/echarts-all.js"></script>
+		<script src="js/theme.js"></script>
+		<script src="js/function.js"></script>
+		<script type="text/javascript">
+		
+			var maincharts = echarts.init(document.getElementById('main'));
+			var options = {
+				tooltip: {
+					trigger: 'axis'
+				},
+				legend: {
+					data:['最高','最低']
+				},
+				toolbox: {
+					show: true,
+					padding:5,
+					feature: {
+						mark: {
+							show: true, 
+							title: {
+								mark: '辅助线-开关',
+								markUndo: '辅助线-删除',
+								markClear: '辅助线-清空'
+							}
+						},
+						dataZoom:{
+							show: true,
+							title : {
+								dataZoom : '区域缩放',
+								dataZoomReset : '区域缩放-后退'
+							}
+						},
+						dataView:{
+							show: true,
+							title : '数据视图',
+							lang : ['数据视图', '关闭', '刷新'],
+						},
+						magicType: {
+							show: true, 
+							title : {
+								line : '动态类型切换-折线图',
+								bar : '动态类型切换-柱形图',
+								stack : '动态类型切换-堆积',
+								tiled : '动态类型切换-平铺'
+							},
+							type: ['line','bar','stack','tiled']
+						},
+						restore: {show: true, title : '还原'},
+						saveAsImage: {show:true, title:'保存为图片'}
+					}
+				},
+				dataZoom:{
+					show:true,
+					start: 30,
+					end: 80,
+					realtime: true
+				},
+				grid: {
+					y2: 80
+				},
+				xAxis: [
+					{
+						type: 'category',
+						splitLine: {
+							show: true,
+							lineStyle: {
+								width: 1,
+								type: 'solid',
+								color: '#eee'
+							}
+						},
+						splitNumber: 10,
+						splitArea: {
+							show: true,
+							areaStyle: {
+								color: ['rgba(238, 238, 238, 0.3)', 'rgba(232, 232, 232, 0.3)']
+							}
+						},
+						data : function (){
+							var list = [];
+							for (var i = 1; i <= 30; i++) {
+								list.push('2013-03-' + i);
+							}
+							return list;
+						}()
+					}
+				],
+				yAxis:[
+					{
+						type: 'value',
+						splitLine: {
+							show: true,
+							lineStyle: {
+								width: 1,
+								type: 'solid',
+								color: '#eee'
+							}
+						}
+					}
+				],
+				series: [
+					{
+						name: '最高',
+						type: 'line',
+						data: function (){
+							var list = [];
+							for (var i = 1; i <= 30; i++) {
+								list.push(Math.round(Math.random()* 30));
+							}
+							return list;
+						}()
+					},
+					{
+						name: '最低',
+						type: 'line',
+						data: function (){
+							var list = [];
+							for (var i = 1; i <= 30; i++) {
+								list.push(Math.round(Math.random()* 30));
+							}
+							return list;
+						}()
+					}
+				]
+			};
+			maincharts.setOption(options);
+			maincharts.setTheme('macarons');
+			
+			
+		</script>
+	</body>
+</html>

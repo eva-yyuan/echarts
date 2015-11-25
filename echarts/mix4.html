@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+		<meta charset="utf-8">
+		<meta name="X-UA-Compatible" content="IE=edge; Chrome=1.0">
+		<meta name="viewpoint" content="width=device-width; minimum-scale=1.0; maximum-scale=1.0; initial-scale=1.0;">
+		<title>Mix· Example</title>
+		<link rel="stylesheet" href="css/reset.css" >
+	</head>
+	<body>
+		<div align="center" id="charts">
+			<div id="main" style="width: 100%; height: 400px; margin: 0;">
+			</div>
+			<div style="text-align: center;">
+                    <button type="button" class="btn-refresh" onclick="refresh(true)">刷 新</button>
+                    <span style=" font-size: 16px; line-height36px; color: #333;">切换主题</span>
+                    <select id="theme-select"></select>
+                </div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/echarts-all.js"></script>
+		<script src="js/theme.js"></script>
+		<script src="js/function.js"></script>
+		<script type="text/javascript">
+		
+			var maincharts = echarts.init(document.getElementById('main'));
+			var options = {
+				tooltip: {
+					trigger: 'axis'
+				},
+				dataRange: {
+					min: 0,
+					max: 100,
+					splitNumber: 5,
+					y: 'top',
+					orient: 'horizontal',
+					color:['lightgreen','yellow']
+				},
+				toolbox: {
+					show: true,
+					x: 'right',
+					feature: {
+						mark: {show: true},
+						dataView: {show: true},
+						restore: {show: true},
+						saveAsImage: {show: true}
+					}
+				},
+				xAxis: [
+					{
+						type: 'category',
+						boundaryGap: false,
+						axisTick: {
+							show: true,
+							length: 7,
+							lineStyle: {
+								color: '#c6c4c4',
+								type: 'solid',
+								width: 2
+							}
+						},
+						splitLine: {
+							show: true,
+							lineStyle: {
+								color:'#eee',
+								type: 'solid',
+								width: 1
+							}
+						},						
+						splitArea: {
+							show: true,
+							areaStyle: {
+								color: ['rgba(238, 238, 238, 0.3)', 'rgba(232, 232, 232, 0.3)']
+							}
+						},
+						data : (function() {
+							var list = [];
+							for(var i = 1; i <= 30; i++) {
+								list.push('2015-06'+ i);
+							}
+							return list;
+						})()
+					},
+					{
+						type: 'value',
+						scale: true,						
+						splitNumber:29,
+						axisLabel: {show: false},
+						splitLine: {show: false}
+					}
+				],
+				yAxis: [
+					{
+						type: 'value',
+						splitLine: {
+							show: true,
+							lineStyle: {
+								color:'#eee',
+								type: 'solid',
+								width: 1
+							}
+						},
+						splitArea: {
+							show: true,
+							areaStyle: {
+								color: ['rgba(238, 238, 238, 0.3)', 'rgba(232, 232, 232, 0.3)']
+							}
+						}
+					},
+					{
+						type: 'value',
+						splitLine: {
+							show: false
+						},
+						splitArea: {
+							show: false
+						}
+					}
+				],
+				series: [
+					{
+						name: '散点',
+						type: 'scatter',
+						xAxisIndex: 1,
+						yAxisIndex: 1,
+						symbol: 'circle',
+						symbolSize: function(value) {
+							return Math.round(value[2] / 10)
+						},
+						tooltip : {
+							trigger: 'item',
+							formatter : function (params) {
+								return '2015-06-' + params.value[0] + '<br/>'
+									   + params.seriesName + ' : ' 
+									   + params.value[1] + ', ' 
+									   + params.value[2]; 
+							}
+						},
+						data:  (function () {
+							var d = [];
+							var len = 200;
+							var value;
+							while (len--) {
+								d.push([
+									Math.round(Math.random()*29) + 1,
+									(Math.random()*30).toFixed(2) - 0,
+									(Math.random()*100).toFixed(2) - 0
+								]);
+							}
+							return d;
+						})()
+					},
+					{
+						name: '折线',
+						type: 'line',
+						data:function (){
+							var list = [];
+							for (var i = 1; i <= 30; i++) {
+								list.push(Math.round(Math.random()* 30));
+							}
+							return list;
+						}()
+					}
+				]
+			};
+			maincharts.setOption(options);
+			maincharts.setTheme('macarons');
+			
+		</script>
+	</body>
+</html>

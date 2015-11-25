@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+		<meta charset="utf-8">
+		<meta name="X-UA-Compatible" content="IE=edge; Chrome=1.0">
+		<meta name="viewpoint" content="width=device-width; minimum-scale=1.0; maximum-scale=1.0; initial-scale=1.0;">
+		<title>Bar· Example</title>
+		<link rel="stylesheet" href="css/reset.css" >
+		<style type='text/css'>
+			body {
+				line-height: 24px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="charts">
+			<div id="main" style="width: 100%; height: 400px; margin: 0;">
+				
+			</div>
+			<div style="text-align: center;">
+                    <button type="button" class="btn-refresh" onclick="refresh(true)">刷 新</button>
+                    <span>切换主题</span>
+                    <select id="theme-select"></select>
+                </div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/echarts-all.js"></script>
+		<script src="js/theme.js"></script>
+		<script src="js/function.js"></script>
+		<script type="text/javascript">
+		
+			var maincharts = echarts.init(document.getElementById('main'));
+			var options = {
+				tooltip: {
+					trigger: 'axis',
+					axisPointer: {
+						type: 'shadow'
+					}
+				},
+				legend: {
+					data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎','百度','谷歌','必应','其他']
+				},
+				toolbox: {
+					show: true,
+					orient: 'vertical',
+					x: 'right',
+					y: 'center',
+					feature: {
+						mark: {show: true},
+						dataView: {show: true},
+						magicType: {
+							show: true, 
+							type: ['line', 'bar','stack','tiled']
+						},
+						restore: {show: true},
+						saveAsImage: {show: true}
+					}
+				},
+				calculable: true,
+				xAxis: [
+					{
+						type: 'category',
+						axisTick: {
+							show: false
+						},
+						splitLine: {
+							show:true,
+							lineStyle: {
+								color: '#eeeeee',
+								type: 'solid',
+								width: 1
+							}
+						},
+						splitArea: {
+							show: true,
+							areaStyle: {
+								color: ['rgba(238, 238, 238, 0.3)', 'rgba(232, 232, 232, 0.3)']
+							}
+						},
+						data : ['周一','周二','周三','周四','周五','周六','周日']
+					}
+				],
+				yAxis: [
+					{
+						type: 'value',
+						axisTick: {
+							show: false
+						},
+						splitLine: {
+							show:true,
+							lineStyle: {
+								color: '#eeeeee',
+								type: 'solid',
+								width: 1
+							}
+						}
+					}
+				],
+				series: [
+					{
+						name: '直接访问',
+						type: 'bar',
+						data: [320, 332, 301, 334, 390, 330, 320]
+					},
+					{
+						name: '邮件营销',
+						type: 'bar',
+						stack: '广告',
+						data: [120, 132, 101, 134, 90, 230, 210]
+					},
+					{
+						name: '联盟广告',
+						type: 'bar',
+						stack: '广告',
+						data: [220, 182, 191, 234, 290, 330, 310]
+					},
+					{
+						name: '邮件营销',
+						type: 'bar',
+						stack: '广告',
+						data: [150, 232, 201, 154, 190, 330, 410]
+					},
+					{
+						name: '搜索引擎',
+						type: 'bar',
+						data: [862, 1018, 964, 1026, 1679, 1600, 1570],
+						markLine: {
+							itemStyle: {
+								normal: {
+									lineStyle: {
+										type: 'dashed'
+									}
+								}
+							},
+							data:[[{type: 'min'},{type: 'max'}]]
+						}
+					},
+					{
+						name: '百度',
+						type: 'bar',
+						barWidth: 5,
+						stack: '搜索引擎',
+						data: [150, 232, 201, 154, 190, 330, 410]
+					},
+					{
+						name: '谷歌',
+						type: 'bar',
+						stack: '搜索引擎',
+						data: [120, 132, 101, 134, 290, 230, 220]
+					},
+					{
+						name: '必应',
+						type: 'bar',
+						stack: '搜索引擎',
+						data: [60, 72, 71, 74, 190, 130, 110]
+					},
+					{
+						name: '其他',
+						type: 'bar',
+						stack: '搜索引擎',
+						data: [150, 232, 201, 154, 190, 330, 410]
+					}					
+				]
+			};
+			maincharts.setTheme('macarons');
+			maincharts.setOption(options);
+                    
+		</script>
+	</body>
+</html>

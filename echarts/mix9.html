@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+		<meta charset="utf-8">
+		<meta name="X-UA-Compatible" content="IE=edge; Chrome=1.0">
+		<meta name="viewpoint" content="width=device-width; minimum-scale=1.0; maximum-scale=1.0; initial-scale=1.0;">
+		<title>Mix· Example</title>
+		<link rel="stylesheet" href="css/reset.css" >
+	</head>
+	<body>
+		<div align="center" id="charts">
+			<div id="main" style="width: 50%; height: 400px; margin: 0; float: left">
+			</div>
+			<div id="main2" style="width: 50%; height: 400px; margin: 0; float: left">
+			</div>
+			<div style="text-align: center;">
+                    <button type="button" class="btn-refresh" onclick="refresh(true)">刷 新</button>
+                    <span style=" font-size: 16px; line-height36px; color: #333;">切换主题</span>
+                    <select id="theme-select"></select>
+                </div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/echarts-all.js"></script>
+		<script src="js/theme.js"></script>
+		<script src="js/function.js"></script>
+		<script type="text/javascript">
+		
+			var maincharts = echarts.init(document.getElementById('main'));
+			var options = {
+				title: {
+					text: '某站点用户访问来源',
+					subtext: '数据虚构',
+					x: 'center'
+				},
+				tooltip: {
+					trigger: 'item',
+					formatter: '{a}<br /> {b}: {c}({d}%)'
+				},
+				legend: {
+					data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎'],
+					x: 'left',
+					orient: 'vertical'
+				},
+				calculable: true,
+				series: [
+					{
+						name: '访问来源',
+						type: 'pie',
+						radius: '55%',
+						center: ['50%', 225],
+						data:[
+							{value:335, name:'直接访问'},
+							{value:310, name:'邮件营销'},
+							{value:234, name:'联盟广告'},
+							{value:135, name:'视频广告'},
+							{value:1548, name:'搜索引擎'}
+						]
+					}
+				]
+			};
+			maincharts.setOption(options);
+			maincharts.setTheme('macarons');
+			
+			var mainchart2 = echarts.init(document.getElementById('main2'));
+			var options2 = {
+				tooltip: {
+					trigger: 'axis',
+					axisPointer: {
+						type: 'shadow'
+					}
+				},
+				legend: {
+					data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+				},
+				calculable: true,
+				toolbox: {
+					show: true,
+					x:'right',
+					y: 'center',
+					orient: 'vertical',
+					feature: {
+						mark: {show: true},
+						magicType: {show: true, type: ['line','bar','stack','tiled']},
+						restore: {show: true},
+						saveAsImage: {show: true}
+					}
+				},
+				xAxis: {
+					type: 'category',
+					axisTick: {
+						show: true,
+						length: 7,
+						lineStyle: {
+							color: '#c6c4c4',
+							type: 'solid',
+							width: 2
+						}
+					},
+					splitLine: {
+						show: true,
+						lineStyle: {
+							color:'#eee',
+							type: 'solid',
+							width: 1
+						}
+					},
+					
+					data : ['周一','周二','周三','周四','周五','周六','周日']
+				},
+				yAxis: {
+					type: 'value',
+					splitArea: {
+						show: true,
+						areaStyle: {
+							color: ['rgba(238, 238, 238, 0.3)', 'rgba(232, 232, 232, 0.3)']
+						}
+					},
+					splitLine: {
+						show: true,
+						lineStyle: {
+							color:'#eee',
+							type: 'solid',
+							width: 1
+						}
+					}
+				},
+				series: [
+					{
+						name: '直接访问',
+						type: 'bar',
+						stack:'总',
+						data:[320, 332, 301, 334, 390, 330, 320]
+					},
+					{
+						name: '邮件营销',
+						type: 'bar',
+						stack:'总',
+						data:[120, 132, 101, 134, 90, 230, 210]
+					},
+					{
+						name: '联盟广告',
+						type: 'bar',
+						stack:'总',
+						data:[220, 182, 191, 234, 290, 330, 310]
+					},
+					{
+						name: '视频广告',
+						type: 'bar',
+						stack:'总',
+						data:[150, 232, 201, 154, 190, 330, 410]
+					},
+					{
+						name: '搜索引擎',
+						type: 'bar',
+						stack:'总',
+						data:[120, 132, 101, 134, 90, 230, 210]
+					}
+				]
+			};
+			mainchart2.setOption(options2);
+			
+			maincharts.connect(mainchart2);
+			mainchart2.connect(maincharts)
+		</script>
+	</body>
+</html>

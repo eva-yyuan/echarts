@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+		<meta charset="utf-8">
+		<meta name="X-UA-Compatible" content="IE=edge; Chrome=1.0">
+		<meta name="viewpoint" content="width=device-width; minimum-scale=1.0; maximum-scale=1.0; initial-scale=1.0;">
+		<title>Force· Example</title>
+		<link rel="stylesheet" href="css/reset.css" >
+	</head>
+	<body>
+		<div align="center" id="charts">
+			<div id="main" style="width: 100%; height: 400px; margin: 0;">
+			</div>
+			<div style="text-align: center;">
+                    <button type="button" class="btn-refresh" onclick="refresh(true)">刷 新</button>
+                    <span style=" font-size: 16px; line-height36px; color: #333;">切换主题</span>
+                    <select id="theme-select"></select>
+                </div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/echarts-all.js"></script>
+		<script src="js/theme.js"></script>
+		<script src="js/function.js"></script>
+		<script type="text/javascript">
+		
+			var maincharts = echarts.init(document.getElementById('main'));
+			var nodes = [], links = [], constMaxDepth = 4, constMaxChildren = 3, constMinChildren = 2, constMaxRadius = 10, constMinRadius = 2;
+			var mains = document.getElementById('main')
+			function rangeRandom(min, max) {
+				return Math.random() * (max - min) + min;
+			}
+			
+			function createRandomNode(depth) {
+				var x= mains.clientWidth / 2 + (.5 - Math.random()) * 200, y = (mains.clientHeight - 20) * depth / (constMaxDepth + 1) + 20;
+				var node = {
+					name: 'NODE_' + nodes.length,
+					value: rangeRandom(constMinRadius, constMaxRadius),
+					id: nodes.length,
+					depth: depth,
+					initial: [x, y],
+					fixY: true,
+					category: depth === constMaxDepth ? 0: 1
+				}
+				nodes.push(node);
+				return node;
+			}
+			
+			function forceMockThreeData() {
+				var depth = 0;
+				var rootNode = createRandomNode(0);
+				rootNode.name = 'ROOT';
+				rootNode.category = 2;
+				
+				function mock(parentNode, depth) {
+					var nChildren = Math.round(rangeRandom(constMinChildren, constMaxChildren))
+					for (var i =0; i < nChildren; i++) {
+						var childNode = createRandomNode(depth);
+						links.push({
+							source: parentNode.id,
+							target: childNode.id,
+							weight: 1
+						});
+						if(depth < constMaxDepth) {
+							mock(childNode, depth+1);
+						}
+					}
+				}
+				mock(rootNode, 1);
+			}
+			forceMockThreeData();
+			var options = {
+				title: {
+					text: 'Force',
+					subtext: '…………',
+					x:'right',
+					y: 'bottom'
+				},
+				tooltip: {
+					trigger: 'item',
+					formatter: '{a}: {b}'
+				},
+				legend: {
+					x: 'left',
+					data: ['叶子节点', '非叶子节点','根节点']
+				},
+				toolbox: {
+					show: true,
+					feature: {
+						restore: {show: true},
+						magicType: {show: true, type: ['force', 'chord']},
+						saveAsImage: {show: true}
+					}
+				},
+				
+				series: [
+					{
+						name: 'Force tree',
+						type: 'force',
+						ribbonType: false,
+						categories: [
+							{
+								name: '叶子节点',
+								itemStyle: {
+									normal: {
+										color: '#ff7f50'
+									}
+								}
+							},
+							{
+								name: '非叶子结点',
+								itemStyle: {
+									normal: {
+										color: '#6f57bc'
+									}
+								}
+							},
+							{
+								name: '根节点',
+								itemStyle: {
+									normal: {
+										color: '#af0000'
+									}
+								}
+							}
+						],
+						itemStyle: {
+							normal: {
+								label:{
+									show: false
+								},
+								nodeStyle: {
+									brushType: 'both',
+									borderColor: 'rgba(255,215,0, 0.6)',
+									borderWidth: 1
+								}
+							}
+						},
+						minRadius: constMinRadius,
+						maxRadius: constMaxRadius,
+						nodes: nodes,	
+						links: links
+					}
+				]
+			};
+			maincharts.setOption(options);
+			maincharts.setTheme('macarons');
+			
+		</script>
+	</body>
+</html>

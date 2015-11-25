@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+		<meta charset="utf-8">
+		<meta name="X-UA-Compatible" content="IE=edge; Chrome=1.0">
+		<meta name="viewpoint" content="width=device-width; minimum-scale=1.0; maximum-scale=1.0; initial-scale=1.0;">
+		<title>Tree· Example</title>
+		<link rel="stylesheet" href="css/reset.css" >
+	</head>
+	<body>
+		<div id="charts">
+			<div id="main" style="width: 100%; height: 400px; margin: 0;">
+				
+			</div>
+			<div style="text-align: center;">
+                <button type="button" class="btn-refresh" onclick="refresh(true)">刷 新</button>
+                <span>切换主题</span>
+                <select id="theme-select"></select>
+            </div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/echarts-all.js"></script>
+		<script src="js/theme.js"></script>
+		<script src="js/function.js"></script>
+		<script src="js/excanvas.js"></script>
+		<script src="js/color.js"></script>
+		<script type="text/javascript">
+		
+			var maincharts = echarts.init(document.getElementById('main'));
+			var renColor = reqColor();
+			var options = {
+				title: {
+					text:'树图',
+					subtext: '反转'
+				},
+				tooltip: {
+					show: true,
+					trigger: 'item'
+				},
+				toolbox: {
+					show: true,
+					feature: {
+						mark: {show: true},
+						dataView: {show: true},
+						restore: {show: true},
+						saveAsImage: {show: true}
+					}
+				},
+				series: [
+					{
+						name: '树图',
+						type: 'tree',
+						orient: 'horizontal',
+						direction: 'inverse',
+						rootLocation: {x: 'center', y: 'center'},
+						nodePadding: 10,
+						itemStyle: {
+							normal: {
+								label: {
+									show: false,
+									formatter: '{b}'
+								},
+								lineStyle: {
+									color: '#48b',
+									shadowColor: '#000',
+									shadowBlur: 5,
+									shadowOffsetX: 3,
+									shadowOffsetY: 5,
+									type: 'curve'
+								}
+							},
+							emphasis: {
+								label: {
+									show: true
+								}
+							}
+						},
+						data:[
+							{
+								name: '根节点',
+								value: 6,
+								children: [
+									{
+										name: '节点1',
+										value: 4,
+										children: [
+											{
+												name: '叶子节点1',
+												value: 4
+											},
+											{
+												name: '叶子节点2',
+												value: 4
+											},
+											{
+												name: '叶子节点3',
+												value: 3
+											},
+											{
+												name: '叶子节点4',
+												value: 4
+											},
+											{
+												name: '叶子节点5',
+												value: 2
+											},
+											{
+												name: '叶子节点6',
+												value: 4
+											}
+										]
+									},
+									{
+										name: '节点2',
+										value: 6,
+										children: [
+											{
+												name: '叶子节点7',
+												value: 4
+											},
+											{
+												name: '叶子节点8',
+												value: 4
+											}
+										]
+									},									
+									{
+										name: '节点3',
+										value: 6,
+										children: [
+											{
+												name: '叶子节点9',
+												value: 4
+											},
+											{
+												name: '叶子节点10',
+												value: 4
+											},
+											{
+												name: '叶子节点11',
+												value: 4
+											},
+											{
+												name: '叶子节点12',
+												value: 4
+											}
+										]
+									}
+								]
+							}
+						]
+					}
+				]
+			};
+			maincharts.setOption(options);
+			maincharts.setTheme('macarons');
+			                    
+		</script>
+	</body>
+</html>

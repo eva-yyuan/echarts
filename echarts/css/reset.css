@@ -1,0 +1,76 @@
+html, body, div, dl, dd, dt, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td, ul, ol, li{
+	margin: 0;
+	padding: 0;
+}
+
+table{
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+caption, th, td{
+	text-align: left;
+}
+
+ol, ul{
+	list-style: none;
+}
+
+address, caption, cite, code, dfn, em, i, strong, th, var {
+	font-style: normal;
+	font-weight: normal;
+}
+
+h1, h2, h3, h4, h5, h6{
+	font-weight: normal;
+	font-size: 100%;
+}
+
+blockquote, q{
+	quotes: "'" "'" '"' '"';
+}
+
+q:before, q:after{
+	content: '';
+}
+
+fieldset, img{
+	border: 0;
+}
+
+img{
+	vertical-align: top;
+}
+
+
+body {
+	font-family: 微软雅黑;
+	font-size: 16px; 
+	line-height:2; 
+	color: #333;
+}
+#charts {
+	width: 1000px; 
+	height: 500px; 
+    border: #e3e3e3 1px solid;
+    padding: 10px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+	margin: 10px auto;
+	text-align: center;
+}
+#charts .btn-refresh{
+	padding: 5px 15px;
+	font-size: 14px;
+	line-height: 1.5;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	color: #fff;
+	background-color: #5cb85c;
+	border: #4cae4c 1px solid;
+	cursor: pointer;
+}

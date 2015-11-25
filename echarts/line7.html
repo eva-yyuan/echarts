@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+		<meta charset="utf-8">
+		<meta name="X-UA-Compatible" content="IE=edge; Chrome=1.0">
+		<meta name="viewpoint" content="width=device-width; minimum-scale=1.0; maximum-scale=1.0; initial-scale=1.0;">
+		<title>Line· Example</title>
+		<link rel="stylesheet" href="css/reset.css" >
+	</head>
+	<body>
+		<div align="center" id="charts">
+			<div id="main" style="width: 100%; height: 400px; margin: 0;">
+			</div>
+			<div style="text-align: center;">
+                    <button type="button" class="btn-refresh" onclick="refresh(true)">刷 新</button>
+                    <span style=" font-size: 16px; line-height36px; color: #333;">切换主题</span>
+                    <select id="theme-select"></select>
+                </div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/echarts-all.js"></script>
+		<script src="js/theme.js"></script>
+		<script src="js/function.js"></script>
+		<script src="js/excanvas.js"></script>
+		<script src="js/color.js"></script>
+		<script type="text/javascript">
+		
+			var maincharts = echarts.init(document.getElementById('main'));
+			var options = {
+				title: {
+					text: '双数值轴折现',
+					subtext: '纯属虚构'
+				},
+				tooltip: {
+					trigger: 'axis',
+					formatter: function(params) {
+						return params.seriesName+': [' + params.value[0] + ',' + params.value[1] + ']';
+					},
+					axisPointer: {
+						show: true,
+						type: 'cross',
+						lineStyle: {
+							type: 'dashed',
+							width: 1
+						}
+					}
+				},
+				legend: {
+					data: ['数据1','数据2']
+				},
+				toolbox: {
+					show: true,
+					feature: {
+						mark: {show: true},
+						dataZoom: {show: true},
+						dataView: {show: true},
+						magicType: {show: true, type: ['line', 'bar']},
+						restore: {show: true},
+						saveAsImage: {show: true}
+					}
+				},
+				xAxis: [
+					{
+						type: 'value',
+						splitLine: {
+							show: true,
+							lineStyle: {
+								color:'#eee',
+								type: 'solid',
+								width: 1
+							}
+						},
+						splitArea: {
+							show: true,
+							areaStyle: {
+								color: ['rgba(238, 238, 238, 0.3)', 'rgba(232, 232, 232, 0.3)']
+							}
+						}
+					}
+				],
+				yAxis: [
+					{
+						type: 'value',
+						axisLine: {
+							lineStyle: {
+								color: '#dc143c'
+							}
+						}
+					}
+				],
+				series: [
+					{
+						name: '数据1',
+						type: 'line',
+						symbol: 'emptyCircle',
+						markPoint: {
+							data: [
+								{
+									type: 'max', 
+									name: '最大值', 
+									symbol: 'emptyCircle',
+									itemStyle: {
+										normal: {
+											color: '#dc143c',
+											label: {
+												position: 'top'
+											}
+										}
+									}
+								},
+								{
+									type: 'min', 
+									name: '最小值', 
+									symbol: 'emptyCircle',
+									itemStyle: {
+										normal: {
+											color: '#dc143c',
+											label: {
+												position: 'top'
+											}
+										}
+									}
+								},
+								{
+									type: 'max', 
+									valueIndex: 0,
+									name: '最小值', 
+									symbol: 'emptyCircle',
+									itemStyle: {
+										normal: {
+											color: '#1e90ff',
+											label: {
+												position: 'top'
+											}
+										}
+									}
+								},
+								{
+									type: 'min', 
+									name: '最小值', 
+									valueIndex: 0,
+									symbol: 'emptyCircle',
+									itemStyle: {
+										normal: {
+											color: '#1e90ff',
+											label: {
+												position: 'top'
+											}
+										}
+									}
+								}
+							]
+						},
+						markLine: {
+							data: [
+								{
+									type: 'max',
+									name: '最大值',
+									itemStyle: {
+										normal: {
+											color: '#dc143c'
+										}
+									}
+								},
+								{
+									type: 'min',
+									name: '最大值',
+									itemStyle: {
+										normal: {
+											color: '#dc143c'
+										}
+									},
+								},
+								{
+									type: 'average',
+									name: '最大值',
+									itemStyle: {
+										normal: {
+											color: '#dc143c'
+										}
+									}
+								},
+								{
+									type: 'max',
+									name: '最大值',
+									valueIndex: 0,
+									itemStyle: {
+										normal: {
+											color: '#1e90ff'
+										}
+									}
+								},
+								{
+									type: 'min',
+									name: '最大值',
+									valueIndex: 0,
+									itemStyle: {
+										normal: {
+											color: '#1e90ff'
+										}
+									}
+								},
+								{
+									type: 'average',
+									name: '最大值',
+									valueIndex: 0,
+									itemStyle: {
+										normal: {
+											color: '#1e90ff'
+										}
+									}
+								}
+							]
+						},
+						data: [[1.5, 10], [5, 7], [8, 8], [12, 6], [11, 12], [16, 9], [14, 6], [17, 4], [19, 9]]
+					},
+					{
+						name: '数据2',
+						type: 'line',
+						data: [
+							[1, 2], [2, 3], [4, 2], [7, 5], [11, 2], [18, 3]
+						]
+					}
+				]
+			};
+			maincharts.setOption(options);
+			maincharts.setTheme('macarons');
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+		<meta charset="utf-8">
+		<meta name="X-UA-Compatible" content="IE=edge; Chrome=1.0">
+		<meta name="viewpoint" content="width=device-width; minimum-scale=1.0; maximum-scale=1.0; initial-scale=1.0;">
+		<title>Bar· Example</title>
+		<link rel="stylesheet" href="css/reset.css" >
+	</head>
+	<body>
+		<div id="charts">
+			<div id="main" style="width: 100%; height: 400px; margin: 0;">
+				
+			</div>
+			<div style="text-align: center;">
+                <button type="button" class="btn-refresh" onclick="refresh(true)">刷 新</button>
+                <span>切换主题</span>
+                <select id="theme-select"></select>
+            </div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/echarts-all.js"></script>
+		<script src="js/theme.js"></script>
+		<script src="js/function.js"></script>
+		<script src="js/excanvas.js"></script>
+		<script src="js/color.js"></script>
+		<script type="text/javascript">
+		
+			var maincharts = echarts.init(document.getElementById('main'));
+			var renColor = reqColor();
+			var options = {
+				tooltip: {
+					show: true,
+					trigger: 'axis'
+				},
+				legend: {
+					data: ['邮件营销','联盟广告','直接访问','搜索引擎']
+				},
+				calculable: true,
+				toolbox: {
+					show: true,
+					feature: {
+						mark: {show: true},
+						dataView: {show: true},
+						magicType: {show: true, type: ['line', 'bar']},
+						restore: {show: true},
+						saveAsImage: {show: true}
+					}
+				},
+				xAxis: [
+					{
+						type: 'category',
+						data: ['周一','周二','周三','周四','周五','周六','周日']
+					}
+				],
+				yAxis: [
+					{
+						type: 'value'
+					}
+				],
+				series: [
+					{
+						name: '邮件营销',
+						type: 'bar',
+						itemStyle: {
+							normal: {
+								barBorderColor: 'red',
+								barBorderWidth: 5,
+								color: (function (){
+									return renColor.getLinearGradient(0, 400, 0, 300,[[0, 'green'],[1, 'yellow']])
+								})() 
+							},
+							emphasis: {
+								barBorderColor: 'green',
+								barBorderWidth: 5,
+								color: (function(){
+									return renColor.getLinearGradient(0, 400, 0, 300, [[0, 'red'],[1, 'orange']])
+								})() 
+							},
+							label: {
+								show: true,
+								position: 'top',
+								formatter: '{a}, {b}, {c}',
+								textStyle: {
+									color: 'blue'
+								}
+							}
+						},
+						data: [220, 232, 101, 234, 190, 330, 210]
+					},
+					{
+						name: '联盟广告',
+						type: 'bar',
+						stack: '总量',
+						data: [120, '-', 451, 134, 190, 230, 110]
+					},
+					{
+						name: '直接访问',
+						type: 'bar',
+						stack: '总量',
+						itemStyle: {	
+							normal: {
+								barBorderColor: 'tomato',
+								barBorderWidth: 6,
+								color: 'red'
+							},
+							emphasis: {
+								barBorderColor: 'red',
+								color: 'blue'
+							}
+						},
+						data:[320, 332, 100, 334, {
+								value: 390,
+								symbolSize: 10,
+								itemStyle: {
+									normal: {color: 'lime'},
+									emphasis: {color: 'skyBlue'}
+								}
+							}, 330, 320]
+					},
+					{
+						name: '搜索引擎',
+						type: 'bar',
+						barWidth: 40,
+						itemStyle: {	
+							normal: {
+								color: (function(){
+									return renColor.getLinearGradient(0, 0, 1000, 0,[[0, 'rgba(30,144,255,0.8)'],[1, 'rgba(138,43,226,0.8)']])
+								})() 
+							},
+							label: {
+								show: true,
+								textStyle: {
+									fontSize : '20',
+									fontFamily : '微软雅黑',
+									fontWeight : 'bold'
+								}
+							}
+						},
+						data: [620, 732, {
+							value: 701,
+							itemStyle: {
+								normal: {
+									label: {
+										position: 'inside'
+									}
+								}
+							}
+						}, 734, 890,930,820],
+						markLine: {
+							data: [
+								{type: 'average', name: '平均值'},
+								{type: 'max'},
+								{type: 'min'}
+							]
+						}
+					}
+				]
+			};
+			maincharts.setOption(options);
+			maincharts.setTheme('macarons');
+			                    
+		</script>
+	</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+		<meta charset="utf-8">
+		<meta name="X-UA-Compatible" content="IE=edge; Chrome=1.0">
+		<meta name="viewpoint" content="width=device-width; minimum-scale=1.0; maximum-scale=1.0; initial-scale=1.0;">
+		<title>Chord· Example</title>
+		<link rel="stylesheet" href="css/reset.css" >
+	</head>
+	<body>
+		<div align="center" id="charts">
+			<div id="main" style="width: 100%; height: 400px; margin: 0;">
+			</div>
+			<div style="text-align: center; margin-top: 30px;">
+                    <button type="button" class="btn-refresh" onclick="refresh(true)">刷 新</button>
+                    <span style=" font-size: 16px; line-height36px; color: #333;">切换主题</span>
+                    <select id="theme-select"></select>
+                </div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/echarts-all.js"></script>
+		<script src="js/theme.js"></script>
+		<script src="js/function.js"></script>
+		<script type="text/javascript">
+		
+			var maincharts = echarts.init(document.getElementById('main'));
+			var options = {
+				color : [
+					'#FBB367','#80B1D2','#FB8070','#CC99FF','#B0D961',
+					'#99CCCC','#BEBBD8','#FFCC99','#8DD3C8','#FF9999',
+					'#CCEAC4','#BB81BC','#FBCCEC','#CCFF66','#99CC66',
+					'#66CC66','#FF6666','#FFED6F','#ff7f50','#87cefa',
+				],
+				title: {
+					text: '中东地区',
+					subtext: 'From …………',
+					x: 'right',
+					y: 'bottom'
+				},
+				tooltip: {
+					trigger: 'item',
+					formatter: function(params) {
+						if (params.name && params.name.indexOf('-') != -1) {
+							return params.name.replace('-', '' + params.seriesName + '');							
+						} else {
+							return params.name ? params.name : params.data.id;
+						}
+					}
+				},
+				legend: {
+					x: 'left',
+					data: [
+						'美国',
+						'叙利亚反对派',
+						'阿萨德',
+						'伊朗',
+						'塞西',
+						'哈马斯',
+						'以色列',
+						'穆斯林兄弟会',
+						'基地组织',
+						'俄罗斯',
+						'黎巴嫩什叶派',
+						'土耳其',
+						'卡塔尔',
+						'沙特',
+						'黎巴嫩逊尼派',
+						'',
+						'支持',
+						'反对',
+						'未表态'
+					],
+					orient: 'vertical'
+				},
+				toolbox: {
+					show: true,
+					feature: {
+						restore: {show: true},
+						magicType: {show: true, type: ['force', 'chord']},
+						saveAsImage: {show: true}
+					}
+				},
+				series: [
+					{
+						type: 'chord',
+						name: '支持',
+						showScaleText: false,
+						clockWise: false,
+						itemStyle: {
+							normal: {
+								label: {
+									show: false					
+								}
+							},
+							emphasis: {
+								chordStyle: {
+									borderWidth: 2,
+									borderColor: 'black'
+								}
+							}
+						},
+						data:  [
+							{"name": "美国"},
+							{"name": "叙利亚反对派"},
+							{"name": "阿萨德"},
+							{"name": "伊朗"},
+							{"name": "塞西"},
+							{"name": "哈马斯"},
+							{"name": "以色列"},
+							{"name": "穆斯林兄弟会"},
+							{"name": "基地组织"},
+							{"name": "俄罗斯"},
+							{"name": "黎巴嫩什叶派"},
+							{"name": "土耳其"},
+							{"name": "卡塔尔"},
+							{"name": "沙特"},
+							{"name": "黎巴嫩逊尼派"}
+						],
+						matrix: [
+							[0,100,0,0,0,0,100,0,0,0,0,0,0,0,0],
+							[10,0,0,0,0,10,10,0,10,0,0,10,10,10,10],
+							[0,0,0,10,0,0,0,0,0,10,10,0,0,0,0],
+							[0,0,100,0,0,100,0,0,0,0,100,0,0,0,0],
+							[0,0,0,0,0,0,0,0,0,0,0,0,0,10,0],
+							[0,100,0,10,0,0,0,0,0,0,0,0,10,0,0],
+							[10,100,0,0,0,0,0,0,0,0,0,0,0,0,0],
+							[0,0,0,0,0,0,0,0,0,0,0,10,10,0,0],
+							[0,100,0,0,0,0,0,0,0,0,0,0,0,0,0],
+							[0,0,100,0,0,0,0,0,0,0,0,0,0,0,0],
+							[0,0,100,10,0,0,0,0,0,0,0,0,0,0,0],
+							[0,100,0,0,0,0,0,100,0,0,0,0,0,0,0],
+							[0,100,0,0,0,100,0,100,0,0,0,0,0,0,0],
+							[0,100,0,0,100,0,0,0,0,0,0,0,0,0,100],
+							[0,100,0,0,0,0,0,0,0,0,0,0,0,10,0]
+						]
+					},
+					{
+						name: '反对',
+						type: 'chord',
+						insertToSerie: '支持',
+						data: [
+							{"name": "美国"},
+							{"name": "叙利亚反对派"},
+							{"name": "阿萨德"},
+							{"name": "伊朗"},
+							{"name": "塞西"},
+							{"name": "哈马斯"},
+							{"name": "以色列"},
+							{"name": "穆斯林兄弟会"},
+							{"name": "基地组织"},
+							{"name": "俄罗斯"},
+							{"name": "黎巴嫩什叶派"},
+							{"name": "土耳其"},
+							{"name": "卡塔尔"},
+							{"name": "沙特"},
+							{"name": "黎巴嫩逊尼派"}
+						],
+						matrix: [
+							[0,0,100,100,0,100,0,0,100,0,0,0,0,0,0],
+							[0,0,0,10,0,0,0,0,0,10,10,0,0,0,0],
+							[10,0,0,0,0,0,10,10,10,0,0,10,10,0,10],
+							[10,100,0,0,0,0,0,0,0,0,0,0,0,0,0],
+							[0,0,0,0,0,10,0,100,0,0,0,10,10,0,0],
+							[10,0,0,0,100,0,10,0,0,0,0,0,0,0,0],
+							[0,0,100,0,0,100,0,0,0,0,0,0,0,0,0],
+							[0,0,100,0,10,0,0,0,0,0,0,0,0,10,0],
+							[10,0,100,0,0,0,0,0,0,0,0,0,0,100,0],
+							[0,100,0,0,0,0,0,0,0,0,0,0,0,0,0],
+							[0,100,0,0,0,0,0,0,0,0,0,0,0,0,0],
+							[0,0,100,0,100,0,0,0,0,0,0,0,0,0,0],
+							[0,0,100,0,100,0,0,0,0,0,0,0,0,0,0],
+							[0,0,0,0,0,0,0,100,10,0,0,0,0,0,0],
+							[0,0,100,0,0,0,0,0,0,0,0,0,0,0,0]
+						]
+					},
+					{
+						name: '未表态',
+						type: 'chord',
+						insertToSerie: '支持',
+						data: [
+							{"name": "美国"},
+							{"name": "叙利亚反对派"},
+							{"name": "阿萨德"},
+							{"name": "伊朗"},
+							{"name": "塞西"},
+							{"name": "哈马斯"},
+							{"name": "以色列"},
+							{"name": "穆斯林兄弟会"},
+							{"name": "基地组织"},
+							{"name": "俄罗斯"},
+							{"name": "黎巴嫩什叶派"},
+							{"name": "土耳其"},
+							{"name": "卡塔尔"},
+							{"name": "沙特"},
+							{"name": "黎巴嫩逊尼派"}
+						],
+						matrix: [
+							[0,0,0,0,100,0,0,100,0,0,0,0,0,0,0],
+							[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+							[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+							[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+							[10,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+							[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+							[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+							[10,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+							[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+							[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+							[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+							[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+							[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+							[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+							[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+						]
+					}
+				]
+			};
+			maincharts.setOption(options);
+			maincharts.setTheme('macarons');
+			
+		</script>
+	</body>
+</html>

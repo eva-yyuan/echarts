@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+		<meta charset="utf-8">
+		<meta name="X-UA-Compatible" content="IE=edge; Chrome=1.0">
+		<meta name="viewpoint" content="width=device-width; minimum-scale=1.0; maximum-scale=1.0; initial-scale=1.0;">
+		<title>Map· Example</title>
+		<link rel="stylesheet" href="css/reset.css" >
+	</head>
+	<body>
+		<div align="center" id="charts">
+			<div id="main" style="width: 100%; height: 450px; margin: 0;">
+			</div>
+			<div style="text-align: center;">
+                    <button type="button" class="btn-refresh" onclick="refresh(true)">刷 新</button>
+                    <span style=" font-size: 16px; line-height36px; color: #333;">切换主题</span>
+                    <select id="theme-select"></select>
+                </div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/echarts-all.js"></script>
+		<script src="js/theme.js"></script>
+		<script src="js/function.js"></script>
+		<script src="js/map_param.js"></script>
+		<script type="text/javascript">		
+			var maincharts = echarts.init(document.getElementById('main'));
+			var itemStyle = {
+				normal: {
+					label: {
+						show: true,
+						formatter: '{b}',
+						textStyle: {
+							fontSize: 20,
+							fontWeight: 'bold'
+						}
+					}
+				},
+				emphasis: {
+					label: {
+						show: true
+					}
+				}
+			}
+			var options = {
+				title: {
+					text: '2012 World GDP Top 8',
+					subtext : 'from baike （Billion $）',
+					x: 'center'
+				},
+				tooltip: {
+					trigger: 'item',
+					formatter: function(params) {
+						var value = params.value + '';
+						value = value.replace(/(\d{1,3})(?=(?:\d{3})+(?!\d))/g, '$1,');
+						return params.seriesName + '<br />' + value + ' Billion';
+					}
+				},
+				toolbox: {
+					show: true,
+					x:'right',
+					y: 'bottom',
+					orient: 'vertical',
+					feature: {
+						mark: {show: true},
+						dataView: {show: true},
+						restore: {show: true},
+						saveAsImage: {show: true}
+					}
+				},
+				dataRange: {
+					min: 2000,
+					max: 160000,
+					text: ['16,000B','2,000B'],
+					calculable: true,
+					x: 'center',
+					y: 'center',
+					orient: 'horizontal',
+					itemWidth: 40,
+					splitNumber: 0,
+					color: ['orangered','yellow','lightskyblue']
+				},
+				series: [
+					{
+						name: 'USA',
+						type: 'map',
+						mapType: 'world|United States of America',
+						itemStyle: itemStyle,
+						mapLocation: {x: '5%', y: '10%', width: '22%', height: '35%'},
+						data: [{name : 'United States of America', value : 15684.7}]
+					},
+					{
+						name: 'China',
+						type: 'map',
+						mapType: 'world|China',
+						itemStyle: itemStyle,
+						mapLocation: {x: '30%', y: '10%', width: '22%', height: '35%'},
+						data: [{name : 'China', value : 8227}]
+					},
+					{
+						name: 'Japan',
+						type: 'map',
+						mapType: 'world|Japan',
+						itemStyle: itemStyle,
+						mapLocation: {x: '55%', y: '10%', width: '22%', height: '35%'},
+						data: [{name : 'Japan', value : 5963.9}]
+					},
+					{
+						name: 'Germany',
+						type: 'map',
+						mapType: 'world|Germany',
+						itemStyle: itemStyle,
+						mapLocation: {x: '76%', y: '10%', width: '22%', height: '35%'},
+						data: [{name : 'Germany', value : 3400.5}]
+					},
+					{
+						name: 'France',
+						type: 'map',
+						mapType: 'world|France',
+						itemStyle: itemStyle,
+						mapLocation: {x: '5%', y: '60%', width: '22%', height: '35%'},
+						data: [{name : 'France', value : 2608.6}]
+					},
+					{
+						name: 'United Kingdom',
+						type: 'map',
+						mapType: 'world|United Kingdom',
+						itemStyle: itemStyle,
+						mapLocation: {x: '33%', y: '60%', width: '22%', height: '35%'},
+						data: [{name : 'United Kingdom', value : 2440.5}]
+					},
+					{
+						name: 'Brazil',
+						type: 'map',
+						mapType: 'world|Brazil',
+						itemStyle: itemStyle,
+						mapLocation: {x: '55%', y: '60%', width: '22%', height: '35%'},
+						data: [{name : 'Brazil', value : 2395.9}]
+					},
+					{
+						name: 'Russia',
+						type: 'map',
+						mapType: 'world|Russia',
+						itemStyle: itemStyle,
+						mapLocation: {x: '76%', y: '60%', width: '22%', height: '35%'},
+						data: [{name : 'Russia', value : 2021.9}]
+					}
+				]
+			};
+			maincharts.setOption(options);
+			maincharts.setTheme('macarons');
+			
+		</script>
+	</body>
+</html>

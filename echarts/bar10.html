@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+		<meta charset="utf-8">
+		<meta name="X-UA-Compatible" content="IE=edge; Chrome=1.0">
+		<meta name="viewpoint" content="width=device-width; minimum-scale=1.0; maximum-scale=1.0; initial-scale=1.0;">
+		<title>Bar· Example</title>
+		<link rel="stylesheet" href="css/reset.css" >
+	</head>
+	<body>
+		<div id="charts">
+			<div id="main" style="width: 100%; height: 400px; margin: 0;">
+				
+			</div>
+			<div style="text-align: center;">
+                    <button type="button" class="btn-refresh" onclick="refresh(true)">刷 新</button>
+                    <span>切换主题</span>
+                    <select id="theme-select"></select>
+                </div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/echarts-all.js"></script>
+		<script src="js/theme.js"></script>
+		<script src="js/function.js"></script>
+		<script type="text/javascript">
+		
+			var maincharts = echarts.init(document.getElementById('main'));
+			var options = {
+				title: {
+					text: '温度计式图标',
+					subtext: 'From ExcelHome'					
+				},
+				tooltip: {
+					trigger: 'axis',
+					axisPointer: {
+						type: 'shadow'
+					},
+					formatter: function (params) {
+						return params[0].name + params[0].seriesName + ':' + params[0].value + '<br />' + params[1].seriesName + ':' + (params[0].value + params[1].value);						
+					}
+				},
+				legend: {
+					selectedMode: false,
+					data:['Acutal', 'Forecast']
+				},
+				toolbox: {
+					show: true,
+					feature: {
+						mark: {show: true},
+						dataView: {show: true},
+						restore: {show: true},
+						saveAsImage: {show: true}
+					}
+				},
+				xAxis: [
+					{
+						type: 'category',
+						axisTick: {
+							show: true,
+							length: 7,
+							lineStyle: {
+								color: '#c6c4c4',
+								type: 'solid',
+								width: 2
+							}
+						},
+						splitLine: {
+							show: true,
+							lineStyle: {
+								color:'#eee',
+								type: 'solid',
+								width: 1
+							}
+						},
+						data: ['Cosco','CMA','APL','OOCL','Wanhai','Zim']
+					}
+				],
+				yAxis: [
+					{
+						type: 'value',
+						boundaryGap: [0,0.1],
+						splitLine: {
+							show: true,
+							lineStyle: {
+								color:'#eee',
+								type: 'solid',
+								width: 1
+							}
+						},
+						splitArea: {
+							show: true,
+							areaStyle: {
+								color: ['rgba(238, 238, 238, 0.3)', 'rgba(232, 232, 232, 0.3)']
+							}
+						}
+					}
+				],
+				series: [
+					{
+						name: 'Acutal',
+						type: 'bar',
+						stack: '总量',
+						barCategoryGap: '50%',
+						itemStyle: {
+							normal: {
+								barBorderColor: 'tomato',
+								barBorderWidth: 5,
+								barBorderRadius: 0,
+								color: 'tomato',
+								label: {
+									show: true,
+									position: 'insideTop'
+								}
+							}
+						},
+						data: [260, 200, 220, 120, 100, 80]
+					},
+					{
+						name: 'Forecast',
+						type: 'bar',
+						stack: '总量',
+						itemStyle: {
+							normal: {
+								barBorderColor: 'tomato',
+								barBorderWidth: 6,
+								barBorderRadius: 0,
+								color: '#fff',
+								label: {
+									show: true,
+									position: 'top',
+									formatter: function(params) {
+										 for (var i = 0, l = options.xAxis[0].data.length; i < l; i++) {
+											if (options.xAxis[0].data[i] == params.name) {
+												return options.series[0].data[i] + params.value;
+											}
+										}
+									},
+									textStyle: {
+										color: 'tomato'
+									}
+								}
+							}
+						},
+						data:[40, 80, 50, 80,80, 70]
+					}
+				]
+			};
+			maincharts.setOption(options);
+			maincharts.setTheme('macarons');    
+
+		</script>
+	</body>
+</html>

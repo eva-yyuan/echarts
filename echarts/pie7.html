@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+		<meta charset="utf-8">
+		<meta name="X-UA-Compatible" content="IE=edge; Chrome=1.0">
+		<meta name="viewpoint" content="width=device-width; minimum-scale=1.0; maximum-scale=1.0; initial-scale=1.0;">
+		<title>Pie· Example</title>
+		<link rel="stylesheet" href="css/reset.css" >
+	</head>
+	<body>
+		<div align="center" id="charts">
+			<div id="main" style="width: 100%; height: 400px; margin: 0;">
+			</div>
+			<div style="text-align: center;">
+                    <button type="button" class="btn-refresh" onclick="refresh(true)">刷 新</button>
+                    <span style=" font-size: 16px; line-height36px; color: #333;">切换主题</span>
+                    <select id="theme-select"></select>
+                </div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/echarts-all.js"></script>
+		<script src="js/theme.js"></script>
+		<script src="js/function.js"></script>
+		<script type="text/javascript">
+		
+			var maincharts = echarts.init(document.getElementById('main'));
+			var idx = 1;
+			var options = {
+				title:{
+					text: '浏览器占比变化',
+					subtext: '纯属虚构'
+				},
+				tooltip: {
+					trigger: 'item',
+					formatter: '{a} <br />{b}: {c}({d}%)'
+				},
+				legend: {
+					data:['Chrome','Firefox','Safari','IE9+','IE8-']
+				},
+				toolbox: {
+					show: true,
+					feature: {
+						mark: {show: true},
+						magicType: {
+							show: true, 
+							type: ['pie','funnel'],
+							option: {
+								funnel: {
+									x: '30%',
+									width: '45%',
+									funnelAlign: 'left',
+									max: 1700
+								}
+							}
+						},
+						restore: {show: true},
+						saveAsImage: {show:true}
+					}
+				},
+				series: [
+					{
+						name: '浏览器占比',
+						type: 'pie',
+						center: ['50%','50%'],
+						radius: '50%',
+						data:[
+							{value: idx * 128 + 80,  name:'Chrome'},
+							{value: idx * 64  + 160,  name:'Firefox'},
+							{value: idx * 32  + 320,  name:'Safari'},
+							{value: idx * 16  + 640,  name:'IE9+'},
+							{value: idx++ * 8  + 1280, name:'IE8-'}
+						]
+					}
+				]
+			};
+			var option1 = {
+				timeline: {
+					show: true,
+					autoplay: true,
+					data:  [
+						'2014-01-01', '2014-02-01', '2014-03-01', '2014-04-01', '2014-05-01',
+						{ name:'2014-06-01', symbol:'emptyStar6', symbolSize:8 },
+						'2014-07-01', '2014-08-01', '2014-09-01', '2014-10-01', '2014-11-01',
+						{ name:'2014-12-01', symbol:'star6', symbolSize:8 }
+					],
+					label: {
+						formatter: function(s) {
+							return s.slice(0, 7);
+						}
+					}
+				},
+				options: [options]
+			}
+			maincharts.setOption(option1);
+			maincharts.setTheme('macarons');
+			
+			
+		</script>
+	</body>
+</html>

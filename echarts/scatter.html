@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+		<meta charset="utf-8">
+		<meta name="X-UA-Compatible" content="IE=edge; Chrome=1.0">
+		<meta name="viewpoint" content="width=device-width; minimum-scale=1.0; maximum-scale=1.0; initial-scale=1.0;">
+		<title>Scatter· Example</title>
+		<link rel="stylesheet" href="css/reset.css" >
+	</head>
+	<body>
+		<div align="center" id="charts">
+			<div id="main" style="width: 100%; height: 400px; margin: 0;">
+			</div>
+			<div style="text-align: center;">
+                    <button type="button" class="btn-refresh" onclick="refresh(true)">刷 新</button>
+                    <span style=" font-size: 16px; line-height36px; color: #333;">切换主题</span>
+                    <select id="theme-select"></select>
+                </div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/echarts-all.js"></script>
+		<script src="js/theme.js"></script>
+		<script src="js/function.js"></script>
+		<script type="text/javascript">
+		
+			var maincharts = echarts.init(document.getElementById('main'));
+			var options = {
+				tooltip: {
+					trigger: 'axis',
+					axisPointer: {
+						show: true,
+						type: 'cross',
+						lineStyle: {
+							type: 'dashed',
+							width: 1
+						}
+						
+					}
+				},
+				legend: {
+					data:['scatter1','scatter2']
+				},
+				toolbox: {
+					show: true,
+					feature: {
+						mark: {show: true},
+						dataView:{show: true},
+						restore: {show: true},
+						saveAsImage: {show:true}
+					}
+				},
+				xAxis: [
+					{
+						type: 'value',
+						splitLine: {
+							show: true,
+							lineStyle: {
+								width: 1,
+								type: 'solid',
+								color: '#eee'
+							}
+						},
+						splitArea: {
+							show: true,
+							areaStyle: {
+								color: ['rgba(238, 238, 238, 0.3)', 'rgba(232, 232, 232, 0.3)']
+							}
+						}
+					}
+				],
+				yAxis:[
+					{
+						type: 'value',
+						splitLine: {
+							show: true,
+							lineStyle: {
+								width: 1,
+								type: 'solid',
+								color: '#eee'
+							}
+						}
+					}
+				],
+				series: [
+					{
+						name: 'scatter1',
+						type: 'scatter',
+						symbol: 'emptyCircle',
+						symbolSize: function (value){
+							if (value[0] < 2) {
+								return 2;
+							}
+							else if (value[0] < 8) {
+								return Math.round(value[2] * 3);
+							}
+							else {
+								return 20;
+							}
+						},
+						itemStyle: {
+							normal: {
+								color: 'lightblue',
+								borderWidth: 4,
+								label : {show: true}
+							},
+							emphasis: {
+								color: 'lightgreen'
+							}
+						},
+						data: (function () {
+							var d = [];
+							var len = 20;
+							while (len--) {
+								d.push([
+									(Math.random()*10).toFixed(2) - 0,
+									(Math.random()*10).toFixed(2) - 0,
+									(Math.random()*10).toFixed(2) - 0
+								]);
+							}
+							return d;
+						})(),
+						markLine: {
+							data: [
+								{type: 'average', name: 'y平均值'},
+								{type: 'average', name: 'x平均值', valueIndex: 0,
+									itemStyle: {
+										normal: {
+											borderColor: 'red'
+										}
+									}									
+								}
+							]
+						},
+						markPoint: {
+							data : [
+								{type : 'max', name: 'y最大值'},
+								{type : 'min', name: 'y最小值'},
+								{type : 'max', name: 'x最大值', valueIndex : 0, symbol:'arrow',itemStyle:{normal:{borderColor:'red'}}},
+								{type : 'min', name: 'x最小值', valueIndex : 0, symbol:'arrow',itemStyle:{normal:{borderColor:'red'}}}
+							]
+						}
+					},
+					{
+						name: 'scatter2',
+						type: 'scatter',
+						itemStyle: {
+							emphasis: {
+								label: {show: true}
+							}
+						},
+						data: (function() {
+							var d = [];
+							var len = 20;
+							while (len--) {
+								d.push([
+									(Math.random()*10).toFixed(2) - 0,
+									(Math.random()*10).toFixed(2) - 0,
+									(Math.random()*10).toFixed(2) - 0
+								]);
+							};
+							d.push({
+								value: [5,5, 1000],
+								itemStyle: {
+									normal: {
+										 borderWidth: 8,
+										 color: 'orange'
+									},
+									emphasis: {
+										 borderWidth: 10,
+										 color: 'orange'
+									}
+									
+								},
+								symbol: 'emptyTriangle',
+								symbolSize: 30,
+								symbolRotate: 90
+							})
+							return d;
+						})(),
+						markPoint: {
+							symbol: 'emptyCircle',
+							itemStyle:{
+								normal:{label:{position:'top'}}
+							},
+							data : [
+								{name : '有个东西', value : 1000, xAxis: 5, yAxis: 5, symbolSize:80}
+							]
+						}
+					}
+				]
+			};
+			maincharts.setOption(options);
+			maincharts.setTheme('macarons');
+			
+			
+		</script>
+	</body>
+</html>

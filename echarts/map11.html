@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+		<meta charset="utf-8">
+		<meta name="X-UA-Compatible" content="IE=edge; Chrome=1.0">
+		<meta name="viewpoint" content="width=device-width; minimum-scale=1.0; maximum-scale=1.0; initial-scale=1.0;">
+		<title>Map· Example</title>
+		<link rel="stylesheet" href="css/reset.css" >
+	</head>
+	<body>
+		<div align="center" id="charts">
+			<div id="main" style="width: 100%; height: 450px; margin: 0;">
+			</div>
+			<div style="text-align: center;">
+                    <button type="button" class="btn-refresh" onclick="refresh(true)">刷 新</button>
+                    <span style=" font-size: 16px; line-height36px; color: #333;">切换主题</span>
+                    <select id="theme-select"></select>
+                </div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/echarts-all.js"></script>
+		<script src="js/theme.js"></script>
+		<script src="js/function.js"></script>
+		<script src="js/timeline.js"></script>
+		<script type="text/javascript">
+		
+			var maincharts = echarts.init(document.getElementById('main'));
+			
+			var option = [
+				{
+					title: {
+						text: '2005全国宏观经济指标',
+						subtext: '纯属虚构'
+					},
+					tooltip: {
+						trigger: 'item'
+					},
+					toolbox: {
+						show: true,
+						feature: {
+							mark: {show: true},
+							dataView: {show: true},
+							restore: {show: true},
+							saveAsImage: {show: true}
+						}
+					},
+					dataRange: {
+						min: 0,
+						max: 53000,
+						text: ['高','低'],
+						calculable: true,
+						x: 'left',
+						y: 'bottom',
+						color: ['orangered','yellow','lightskyblue']
+					},
+					series: [
+						{
+							name: 'GDP',
+							type: 'map',
+							data: dataMap.dataGDP[2005]
+						}
+					]
+				},
+				{
+					title: {
+						text: '2006全国宏观经济指标'
+					},
+					series: [
+						{
+							data: dataMap.dataGDP[2006]
+						}
+					]
+				},
+				{
+					title: {
+						text: '2007全国宏观经济指标'
+					},
+					series: [
+						{
+							data: dataMap.dataGDP[2007]
+						}
+					]
+				},
+				{
+					title: {
+						text: '2008全国宏观经济指标'
+					},
+					series: [
+						{
+							data: dataMap.dataGDP[2008]
+						}
+					]
+				},
+				{
+					title: {
+						text: '2009全国宏观经济指标'
+					},
+					series: [
+						{
+							data: dataMap.dataGDP[2009]
+						}
+					]
+				},
+				{
+					title: {
+						text: '2010全国宏观经济指标'
+					},
+					series: [
+						{
+							data: dataMap.dataGDP[2010]
+						}
+					]
+				},
+				{
+					title: {
+						text: '2011全国宏观经济指标'
+					},
+					series: [
+						{
+							data: dataMap.dataGDP[2011]
+						}
+					]
+				},
+				{
+					title: {
+						text: '2012全国宏观经济指标'
+					},
+					series: [
+						{
+							data: dataMap.dataGDP[2012]
+						}
+					]
+				},
+				{
+					title: {
+						text: '2013全国宏观经济指标'
+					},
+					series: [
+						{
+							data: dataMap.dataGDP[2013]
+						}
+					]
+				},
+				{
+					title: {
+						text: '2014全国宏观经济指标'
+					},
+					series: [
+						{
+							data: dataMap.dataGDP[2014]
+						}
+					]
+				}
+			];
+			
+			var options = {
+				timeline: {
+					data: [ '2005-01-01','2006-01-01','2007-01-01','2008-01-01','2009-01-01','2010-01-01','2011-01-01','2012-01-01','2013-01-01','2014-01-01'],
+					label: {
+						formatter: function(s) {
+							return s.slice(0,4)
+						}
+					},
+					autoPlay: true,
+					playInterval: 1000
+				},
+				options: option
+			}
+			maincharts.setOption(options);
+			maincharts.setTheme('macarons');
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+		<meta charset="utf-8">
+		<meta name="X-UA-Compatible" content="IE=edge; Chrome=1.0">
+		<meta name="viewpoint" content="width=device-width; minimum-scale=1.0; maximum-scale=1.0; initial-scale=1.0;">
+		<title>WordCloud· Example</title>
+		<link rel="stylesheet" href="css/reset.css" >
+	</head>
+	<body>
+		<div id="charts">
+			<div id="main" style="width: 100%; height: 400px; margin: 0;">
+				
+			</div>
+			<div style="text-align: center;">
+                <button type="button" class="btn-refresh" onclick="refresh(true)">刷 新</button>
+                <span>切换主题</span>
+                <select id="theme-select"></select>
+            </div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/echarts-all.js"></script>
+		<script src="js/theme.js"></script>
+		<script src="js/function.js"></script>
+		<script type="text/javascript">
+		
+			var maincharts = echarts.init(document.getElementById('main'));
+			function createRandomItemStyle(){
+				return {
+					normal: {
+						color: 'rgb(' + [Math.round(Math.random()*160),Math.round(Math.random()*160),Math.round(Math.random()*160)].join(',') + ')'
+					}
+				};
+			}
+			var options = {
+				title: {
+					text:'Google Trends'
+				},
+				tooltip: {
+					show: true,
+					trigger: 'item',
+					formatter: '{a}<br />{b}: {c}'
+				},
+				toolbox: {
+					show: true,
+					feature: {
+						mark: {show: true},
+						dataView: {show: true},
+						restore: {show: true},
+						saveAsImage: {show: true}
+					}
+				},
+				series: [
+					{
+						name: '字符云',
+						type: 'wordCloud',
+						size: ['80%','80%'],
+						textRotation: [0,45, 90,-45],
+						textPadding: 0,
+						autoSize: {
+							enable: true,
+							minSize: 14
+						},
+						data:[
+							{ 
+								name: "Sam S Club",
+								value: 1000,
+								itemStyle: {
+									normal: {
+										color: 'black'
+									}
+								}
+							},
+							{ 
+								name: "Macys",
+								value: 6813,
+								itemStyle: createRandomItemStyle()
+							},
+							{ 
+								name: "Amy Schumer",
+								value: 3813,
+								itemStyle: createRandomItemStyle()
+							},
+							{ 
+								name: "Charter Communications",
+								value: 5813,
+								itemStyle: createRandomItemStyle()
+							},
+							{ 
+								name: "Charter Communications",
+								value: 2313,
+								itemStyle: createRandomItemStyle()
+							},
+							{ 
+								name: "Amy Schumer",
+								value: 3813,
+								itemStyle: createRandomItemStyle()
+							},
+							{ 
+								name: "Charter Communications",
+								value: 5813,
+								itemStyle: createRandomItemStyle()
+							},
+							{ 
+								name: "Charter Communications",
+								value: 2313,
+								itemStyle: createRandomItemStyle()
+							}
+						]
+					}
+				]
+			};
+			maincharts.setOption(options);
+			maincharts.setTheme('macarons');
+			                    
+		</script>
+	</body>
+</html>

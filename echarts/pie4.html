@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+		<meta charset="utf-8">
+		<meta name="X-UA-Compatible" content="IE=edge; Chrome=1.0">
+		<meta name="viewpoint" content="width=device-width; minimum-scale=1.0; maximum-scale=1.0; initial-scale=1.0;">
+		<title>Pie· Example</title>
+		<link rel="stylesheet" href="css/reset.css" >
+	</head>
+	<body>
+		<div align="center" id="charts">
+			<div id="main" style="width: 100%; height: 400px; margin: 0;">
+			</div>
+			<div style="text-align: center;">
+                    <button type="button" class="btn-refresh" onclick="refresh(true)">刷 新</button>
+                    <span style=" font-size: 16px; line-height36px; color: #333;">切换主题</span>
+                    <select id="theme-select"></select>
+                </div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/echarts-all.js"></script>
+		<script src="js/theme.js"></script>
+		<script src="js/function.js"></script>
+		<script type="text/javascript">
+		
+			var maincharts = echarts.init(document.getElementById('main'));
+			var options = {
+				title: {
+					text: '南丁格尔玫瑰图',
+					subtext: '虚拟数据'
+				},
+				tooltip: {
+					trigger: 'item',
+					formatter: '{a} <br />{b}: {c}({d}%)'
+				},
+				legend: {
+					data: ['rose1','rose2','rose3','rose4','rose5','rose6','rose7','rose8'],
+					y: 'bottom'
+				},
+				toolbox: {
+					show: true,
+					feature: {
+						mark: {show: true},
+						magicType: {
+							show: true, 
+							type: ['pie','funnel']
+						},
+						restore: {show: true},
+						saveAsImage: {show:true}
+					}
+				},
+				calculable: true,
+				series: [
+					{
+						name: '半径模式',
+						type: 'pie',
+						roseType: 'radius',
+						center: ['25%',200],
+						radius: [30,110],
+						max: 40,
+						sort: 'descending',
+						funnelAlign: 'center',
+						width: '40%',
+						itemStyle: {
+							normal: {
+								label: {
+									show: false
+								},
+								labelLine: {
+									show: false
+								}
+							},
+							emphasis: {
+								label: {
+									show: true
+								},
+								labelLine: {
+									show: true
+								}
+							}
+						},
+						data:[
+							{value:10, name:'rose1'},
+							{value:5, name:'rose2'},
+							{value:15, name:'rose3'},
+							{value:25, name:'rose4'},
+							{value:20, name:'rose5'},
+							{value:35, name:'rose6'},
+							{value:30, name:'rose7'},
+							{value:40, name:'rose8'}
+						]
+					},
+					{
+						name: '面积模式',
+						type: 'pie',
+						roseType: 'area',
+						center: ['75%',200],
+						radius: [50,110],
+						max: 40,
+						x: '50%',
+						sort: 'ascending',
+						funnelAlign: 'center',
+						width: '40%',
+						data:[
+							{value:10, name:'rose1'},
+							{value:5, name:'rose2'},
+							{value:15, name:'rose3'},
+							{value:25, name:'rose4'},
+							{value:20, name:'rose5'},
+							{value:35, name:'rose6'},
+							{value:30, name:'rose7'},
+							{value:40, name:'rose8'}
+						]
+					}
+				]
+			};
+			maincharts.setOption(options);
+			maincharts.setTheme('macarons');
+			
+			
+		</script>
+	</body>
+</html>

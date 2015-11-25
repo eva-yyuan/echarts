@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+		<meta charset="utf-8">
+		<meta name="X-UA-Compatible" content="IE=edge; Chrome=1.0">
+		<meta name="viewpoint" content="width=device-width; minimum-scale=1.0; maximum-scale=1.0; initial-scale=1.0;">
+		<title>Line· Example</title>
+		<link rel="stylesheet" href="css/reset.css" >
+	</head>
+	<body>
+		<div align="center" id="charts">
+			<div id="main" style="width: 100%; height: 400px; margin: 0;">
+			</div>
+			<div style="text-align: center;">
+                    <button type="button" class="btn-refresh" onclick="refresh(true)">刷 新</button>
+                    <span style=" font-size: 16px; line-height36px; color: #333;">切换主题</span>
+                    <select id="theme-select"></select>
+                </div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/echarts-all.js"></script>
+		<script src="js/theme.js"></script>
+		<script src="js/function.js"></script>
+		<script src="js/excanvas.js"></script>
+		<script src="js/color.js"></script>
+		<script type="text/javascript">
+		
+			var maincharts = echarts.init(document.getElementById('main'));
+			var options = {
+				title: {
+					text: '某楼盘销售情况',
+					subtext: '纯属虚构'
+				},
+				tooltip: {
+					trigger: 'axis'
+				},
+				legend: {
+					data: ['意向','预购','成交']
+				},
+				toolbox: {
+					show: true,
+					feature: {
+						mark: {show: true},
+						dataView: {show: true},
+						magicType: {show: true, type: ['line', 'bar','stack','tiled']},
+						restore: {show: true},
+						saveAsImage: {show: true}
+					}
+				},
+				xAxis: [
+					{
+						type: 'category',
+						position: 'bottom',
+						boundaryGap: false,
+						axisTick: {
+							show: true,
+							length: 7,
+							lineStyle: {
+								color: '#c6c4c4',
+								type: 'solid',
+								width: 2
+							}
+						},
+						splitLine: {
+							show: true,
+							lineStyle: {
+								color:'#eee',
+								type: 'solid',
+								width: 1
+							}
+						},
+						splitArea: {
+							show: true,
+							areaStyle: {
+								color: ['rgba(238, 238, 238, 0.3)', 'rgba(232, 232, 232, 0.3)']
+							}
+						},
+						data: ['周一','周二','周三','周四','周五','周六','周日']
+					}
+				],
+				yAxis: [
+					{
+						type: 'value',
+						splitLine: {
+							show: true,
+							lineStyle: {
+								color:'#eee',
+								type: 'solid',
+								width: 1
+							}
+						}
+					}
+				],
+				series: [
+					{
+						name: '意向',
+						type: 'line',
+						smooth: true,
+						itemStyle: {
+							normal: {
+								areaStyle: {
+									type: 'default'
+								}
+							}
+						},
+						data: [10, 12, 21, 54, 260, 830, 710]
+					},
+					{
+						name: '预购',
+						type: 'line',
+						smooth: true,
+						itemStyle: {
+							normal: {
+								areaStyle: {
+									type: 'default'
+								}
+							}
+						},
+						data: [30, 182, 434, 791, 390, 30, 10]
+					},
+					{
+						name:'成交',
+						type: 'line',
+						symbol: 'arrow',
+						symbolSize: 6,
+						itemStyle: {
+							normal: {
+								areaStyle: {
+									type: 'default'
+								}
+							}
+						},
+						data: [1320, 1132, 601, 234, 120, 90, 20]
+					}
+				]
+			};
+			maincharts.setOption(options);
+			maincharts.setTheme('macarons');
+			
+		</script>
+	</body>
+</html>

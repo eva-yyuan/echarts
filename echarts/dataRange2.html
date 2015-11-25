@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+		<meta charset="utf-8">
+		<meta name="X-UA-Compatible" content="IE=edge; Chrome=1.0">
+		<meta name="viewpoint" content="width=device-width; minimum-scale=1.0; maximum-scale=1.0; initial-scale=1.0;">
+		<title>DataRange· Example</title>
+		<link rel="stylesheet" href="css/reset.css" >
+	</head>
+	<body>
+		<div align="center" id="charts">
+			<div id="main" style="width: 100%; height: 450px; margin: 0;">
+			</div>
+			<div style="text-align: center;">
+                    <button type="button" class="btn-refresh" onclick="refresh(true)">刷 新</button>
+                    <span style=" font-size: 16px; line-height36px; color: #333;">切换主题</span>
+                    <select id="theme-select"></select>
+                </div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/echarts-all.js"></script>
+		<script src="js/theme.js"></script>
+		<script src="js/function.js"></script>
+		<script type="text/javascript">
+		
+			var maincharts = echarts.init(document.getElementById('main'));			
+			var options = {
+				title: {
+					text: '订单量',
+					subtext: '模拟数据',
+					x: 'center'
+				},
+				legend: {
+					data: ['订单量'],
+					x: 'left',
+					orient: 'vertical'
+				},
+				toolbox: {
+					show: true,
+					orient : 'vertical',
+					x: 'right',
+					y: 'center',
+					feature : {
+						mark : {show: true},
+						dataView : {show: true, readOnly: false},
+						restore : {show: true},
+						saveAsImage : {show: true}
+					}
+				},
+				dataRange: {
+					x: 'left',
+					y: 'bottom',
+					splitList: [
+						{start: 1500},
+						{start: 900, end: 1500},
+						{start: 310, end: 1000},
+						{start: 200, end: 300},
+						{start: 10, end: 200, label: '自定义label: 10 到 200'},
+						{start: 5, end: 5, label:'5(自定义颜色)', color: 'orange'},
+						{end: 10}
+					]
+				},
+				roamController: { 
+					show: true,
+					x: 'right',
+					mapTypeControl: {
+						'china': true
+					}
+				},
+				series: [
+					{
+						name: '订单量',
+						type: 'map',
+						mapType: 'china',
+						itemStyle: {
+							normal: {
+								label: {
+									show: true,
+									textStyle: {									
+										color: "rgb(249, 249, 249)"
+									}
+								}
+							},
+							emphasis: {
+								label: { 
+									show: true
+								}
+							}
+						},
+						data: [
+							{name: '北京',value: Math.round(Math.random()*2000)},
+							{name: '天津',value: Math.round(Math.random()*2000)},
+							{name: '上海',value: Math.round(Math.random()*2000)},
+							{name: '重庆',value: Math.round(Math.random()*2000)},
+							{name: '河北',value: 0},
+							{name: '河南',value: Math.round(Math.random()*2000)},
+							{name: '云南',value: 5},
+							{name: '辽宁',value: 305},
+							{name: '黑龙江',value: Math.round(Math.random()*2000)},
+							{name: '湖南',value: 200},
+							{name: '安徽',value: Math.round(Math.random()*2000)},
+							{name: '山东',value: Math.round(Math.random()*2000)},
+							{name: '新疆',value: Math.round(Math.random()*2000)},
+							{name: '江苏',value: Math.round(Math.random()*2000)},
+							{name: '浙江',value: Math.round(Math.random()*2000)},
+							{name: '江西',value: Math.round(Math.random()*2000)},
+							{name: '湖北',value: Math.round(Math.random()*2000)},
+							{name: '广西',value: Math.round(Math.random()*2000)},
+							{name: '甘肃',value: Math.round(Math.random()*2000)},
+							{name: '山西',value: Math.round(Math.random()*2000)},
+							{name: '内蒙古',value: Math.round(Math.random()*2000)},
+							{name: '陕西',value: Math.round(Math.random()*2000)},
+							{name: '吉林',value: Math.round(Math.random()*2000)},
+							{name: '福建',value: Math.round(Math.random()*2000)},
+							{name: '贵州',value: Math.round(Math.random()*2000)},
+							{name: '广东',value: Math.round(Math.random()*2000)},
+							{name: '青海',value: Math.round(Math.random()*2000)},
+							{name: '西藏',value: Math.round(Math.random()*2000)},
+							{name: '四川',value: Math.round(Math.random()*2000)},
+							{name: '宁夏',value: Math.round(Math.random()*2000)},
+							{name: '海南',value: Math.round(Math.random()*2000)},
+							{name: '台湾',value: Math.round(Math.random()*2000)},
+							{name: '香港',value: Math.round(Math.random()*2000)},
+							{name: '澳门',value: Math.round(Math.random()*2000)}
+						]
+					}
+				]
+			};
+			maincharts.setOption(options);
+			maincharts.setTheme('macarons');
+			
+		</script>
+	</body>
+</html>

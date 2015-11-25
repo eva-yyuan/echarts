@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+		<meta charset="utf-8">
+		<meta name="X-UA-Compatible" content="IE=edge; Chrome=1.0">
+		<meta name="viewpoint" content="width=device-width; minimum-scale=1.0; maximum-scale=1.0; initial-scale=1.0;">
+		<title>Heatmap· Example</title>
+		<link rel="stylesheet" href="css/reset.css" >
+	</head>
+	<body>
+		<div align="center" id="charts">
+			<div id="main" style="width: 100%; height: 400px; margin: 0;">
+			</div>
+			<div style="text-align: center;">
+                    <button type="button" class="btn-refresh" onclick="refresh(true)">刷 新</button>
+                    <span style=" font-size: 16px; line-height36px; color: #333;">切换主题</span>
+                    <select id="theme-select"></select>
+                </div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/echarts-all.js"></script>
+		<script src="js/theme.js"></script>
+		<script src="js/function.js"></script>
+		<script type="text/javascript">
+		
+			var maincharts = echarts.init(document.getElementById('main'));
+			var options = {
+				title: {
+					text: '浏览器占比编号',
+					subtext: '虚拟数据',
+					x: 'right',
+					y: 'bottom'
+				},
+				tooltip: {
+					trigger: 'item',
+					formatter: '{a} <br />{b}: {c}({d}%)'
+				},
+				legend: {
+					data: ['Chrome','Firefox','Safari','IE9+','IE8-'],
+					x: 'left',
+					orient: 'vertical'
+				},
+				toolbox: {
+					show: true,
+					feature: {
+						mark: {show: true},
+						dataView: {show: true},
+						restore: {show: true},
+						saveAsImage: {show:true}
+					}
+				},
+				series: (function() {
+					var series = [];
+					for(var i = 0; i < 30; i++) {
+						series.push({
+							name: '浏览器(数据纯属虚构)',
+							type: 'pie',
+							itemStyle: {
+								normal: {
+									label: {
+										show: i > 28,
+										labelLine: {
+											show: i > 28,
+											length: 20
+										}
+									}
+								}
+							},
+							radius: [i*4 + 40,i*4 + 43],
+							data: [
+								{value: i*128+80, name: 'Chrome'},
+								{value: i*64+160, name: 'Firefox'},
+								{value: i*32+320, name: 'Safari'},
+								{value: i*16+640, name: 'IE9+'},
+								{value: i*8+1280, name: 'IE8-'}
+							]
+						})
+					}
+					series[0].markPoint = {
+						symbol: 'emptyCircle',
+						symbolSize: series[0].radius[0],
+						effect: {
+							show: true,
+							scaleSize: 12,
+							color: 'rgba(250,225,50,0.8)',
+							shadowBlur:10,
+							period:30
+						},
+						data: [{x: '50%', y:'50%'}]
+					}
+					return series;
+				})()
+			};
+			maincharts.setOption(options);
+			maincharts.setTheme('macarons');
+			
+			
+		</script>
+	</body>
+</html>
